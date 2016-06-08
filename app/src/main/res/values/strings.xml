@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">CurrencyConverter</string>
+    <string name="spinner_title">IND</string>
+    <string name="spinner_title_usd">USD</string>
+</resources>

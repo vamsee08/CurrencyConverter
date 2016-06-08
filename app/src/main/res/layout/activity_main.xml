@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#ACC0CD"
+    tools:context="com.example.vamsee.currencyconverter.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:id="@+id/source_layout">
+
+        <EditText
+            android:id="@+id/source_edit"
+            android:layout_width="150dp"
+            android:inputType="number"
+            android:layout_height="match_parent"
+            android:imeOptions="actionNone"
+            android:maxLength="4"
+            android:text="1"/>
+
+        <Spinner
+            android:id="@+id/source_spinner"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:prompt="@string/spinner_title"
+            android:layout_gravity="end"
+            android:tag="source"
+            android:layout_marginLeft="25dp"></Spinner>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:id="@+id/target_layout"
+        android:layout_below="@id/source_layout"
+        android:layout_marginTop="30dp">
+
+        <EditText
+            android:id="@+id/target_edit"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:inputType="number"
+            android:enabled="false"
+            android:textColor="#000000"
+            android:text="0"/>
+
+        <Spinner
+            android:id="@+id/target_spinner"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:prompt="@string/spinner_title_usd"
+            android:layout_gravity="end"
+            android:layout_marginLeft="25dp"></Spinner>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:layout_below="@+id/target_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:textAlignment="gravity"
+        android:text="Submit"
+        android:onClick="submitValues"/>
+
+</RelativeLayout>

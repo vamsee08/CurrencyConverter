@@ -1,5 +1,8 @@
 package com.example.vamsee.currencyconverter;
 
+import android.app.Activity;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -89,23 +92,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void submitValues(View view){
-        //if(connected())  Check for network connectivity
-        String sourceText = mSourceEdit.getText().toString().trim();
-        int source = -1;
-        if(sourceText != null && !TextUtils.isEmpty(sourceText)){
-            source = Integer.parseInt(sourceText);
+        //Check for network connectivity
+        if(isConnected()){
+            String sourceText = mSourceEdit.getText().toString().trim();
+            int source = -1;
+            if(sourceText != null && !TextUtils.isEmpty(sourceText)){
+                source = Integer.parseInt(sourceText);
+            }else{
+                source = 0;
+            }
+
+            if(source <= 0){
+                source = 1;
+                mSourceEdit.setText("1");
+            }
+
+            //Call the background task to fetch the results
+            FetchAsync fetchAsync = new FetchAsync();
+            fetchAsync.execute(categoriesTarget.get(mTargetSpinner.getSelectedItem()));
         }else{
-            source = 0;
+            Toast.makeText(MainActivity.this, "No internet connectivity", Toast.LENGTH_SHORT).show();
         }
 
-        if(source <= 0){
-            source = 1;
-            mSourceEdit.setText("1");
-        }
-
-        //Call the background task to fetch the results
-        FetchAsync fetchAsync = new FetchAsync();
-        fetchAsync.execute(categoriesTarget.get(mTargetSpinner.getSelectedItem()));
     }
 
     public class FetchAsync extends AsyncTask<String, Void, Double>{
@@ -145,5 +153,14 @@ public class MainActivity extends AppCompatActivity {
 
             mTargetEdit.setText((sourceValue * result)+"");
         }
+    }
+
+    public boolean isConnected(){
+        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected())
+            return true;
+        else
+            return false;
     }
 }
